@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulate name="JEMRIS">
+   <sample name="2D sphere" uri="mpsample.h5" type="multipool"/>
+   <RXcoilarray uri="/usr/local/share/jemris/matlab/uniform.xml"/>
+   <TXcoilarray uri="/usr/local/share/jemris/matlab/uniform.xml"/>
+   <parameter ConcomitantFields="0" EvolutionPrefix="evol" EvolutionSteps="0" RandomNoise="0"/>
+   <sequence name="test" uri="mt.xml"/>
+   <model name="Bloch" type="BM_CVODE"/>
+</simulate>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Parameters Name="P">
+   <ConcatSequence Name="C1">
+      <ATOMICSEQUENCE Name="A1">
+	 <HARDRFPULSE Axis="RF" Duration="YYY" FlipAngle="ZZZ" Frequency="XXX" Name="P1"/>
+      </ATOMICSEQUENCE>
+      <ATOMICSEQUENCE Name="A5">
+         <EMPTYPULSE ADCs="1" Axis="NONE" Duration="0.01" Name="P5"/>
+      </ATOMICSEQUENCE>
+   </ConcatSequence>
+</Parameters>
