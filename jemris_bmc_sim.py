@@ -1,4 +1,4 @@
-# import modules
+# ----------- import modules -----------
 
 import numpy as np
 import h5py
@@ -8,65 +8,52 @@ import matplotlib.pyplot as plt
 import multiprocessing, tempfile
 
 
-# help functions
+# ----------- help functions -----------
 
 def gamma():
     return 42.576375 * 2 * np.pi       # [MHz/T]
 
 
 def calc_flipangle(B1,tp): 
-    ''' calculate flipangle from pulse amplitude and duration
+    ''' 
+    calculate flipangle from pulse amplitude and duration
     B1 in uT
     tp in s
-    alpha in degrees '''
+    alpha in degrees 
+    '''
 
     return np.rad2deg(gamma() * B1 * tp * 10**(-3))
 
 
 def calc_w0(B0):
-    ''' calculate angular frequency from B0
+    '''
+    calculate angular frequency from B0
     f0 = gamma_stern*B0 [MHz] 
-    w0 [rad/ms]
+    w0 in rad/ms
     '''
     
     return gamma()*B0 * 10**(-3)
 
     
 def calc_offset(w, w0):
-    # w in ppm
-    # dw in rad/ms
+    '''
+    conversion from ppm to rad/ms
+    w in ppm
+    w0 in rad/ms
+    '''
 
     return w * w0 
 
 
-def add_dw2FREQ(FREQ,dw):
-    if np.any(abs(FREQ) <1E-6):
-        FREQ=FREQ
-    else:
-        FREQ= np.append(FREQ,0)
-        
-    if np.size(dw)==1:
-        if np.any(FREQ==dw):
-            FREQ=FREQ
-        else:
-            FREQ=np.append(FREQ,dw)
-            FREQ=np.append(FREQ,-dw)
-
-    else: 
-        for i in range(0,np.size(dw)):
-            if np.any(FREQ==dw[i]):
-                FREQ=FREQ
-            else:
-                FREQ=np.append(FREQ,dw[i])
-                FREQ=np.append(FREQ,-dw[i])
-    FREQ=np.append(FREQ,100)
-    return np.sort(FREQ)
-
-# create mpsample
+# ----------- create mpsample -----------
 
 def mpsample(pools,water_T1,water_T2,B0):
     '''
-    create multi pool sample with n-pools for Bloch McConnel Simulation
+    create multi pool sample with n pools for Bloch McConnell Simulation
+    pools: fraction, frequency offset [ppm], exchange rate [kHz]
+    water_T1 in ms
+    water_T2 in ms
+    B0
     '''
     
     fb =  np.array([p["fb"] for p in pools])
@@ -132,11 +119,13 @@ def mpsample(pools,water_T1,water_T2,B0):
     hf.close()        
     
     return
-   
+ 
+#  ----------- cw simulation  -----------    
     
 def start_cw_sim(arg):
     '''
-    
+    command line script to run JEMRIS
+    arg: list of frequencies, pulse duration, flip angle & current working directory
     '''
  
     FREQ, td, alpha, path_ = arg
@@ -161,6 +150,13 @@ def start_cw_sim(arg):
 
 def run_cw_sim(td=5000, B1=5, frequency=np.array([-45,-30,0,30,45]), B0=7, n_p=None, verbose=True):
     '''
+    simulating a CEST experiment with a continous wave saturation
+    td: pulse duration in ms
+    B1: pulse amplitude in µT
+    frequency: array with list of frequencys to simulate in ppm
+    B0: static magnetic field in T
+    n_p: number of kernels for parallelization
+    verbose: show plot yes/no
     '''
     
     ### define/calculate simulation parameters
@@ -189,7 +185,13 @@ def run_cw_sim(td=5000, B1=5, frequency=np.array([-45,-30,0,30,45]), B0=7, n_p=N
     return (Z, FREQ/w0)
 
 
+# ----------- simulation of arbitraty saturation modules -----------
+
 def start_free_sim(arg):
+     '''
+    command line script to run JEMRIS
+    arg: list of frequencies, xml file name & current working directory
+    '''
      
     FREQ, sequence, path_ = arg
 
@@ -212,7 +214,13 @@ def start_free_sim(arg):
 
 
 def run_sim(sequence='mt_pulsed.xml', frequency=np.array([-45,-30,0,30,45]), B0=7, n_p=None, verbose=True):
-    '''
+    '''  
+    simulating a CEST experiment with arbitrary saturation module which has to be defined previous
+    sequence: name of xml-file
+    frequency: array with list of frequencys to simulate in ppm
+    B0: static magnetic field in T
+    n_p: number of kernels for parallelization
+    verbose: show plot yes/no
     '''
     
     ### define/calculate simulation parameters
