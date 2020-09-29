@@ -2,11 +2,8 @@
 
 This repository contains a Jupyter Notebook with an example code for CEST simulations with the open source framework JEMRIS (www.jemris.org).
 
-- continuous wave saturation
-- arbitrary labelling
-
-A CEST experiment with continuous wave saturation can be used from the Python GUI without any additional knowledge of JEMRIS.
-The design of arbitrary saturation modules is done with the MATLAB GUI of JEMRIS.
+A CEST experiment with _continuous wave saturation_ can be used from the Python GUI without any additional knowledge of JEMRIS.
+The design of _arbitrary saturation modules_ is done with the MATLAB GUI of JEMRIS.
 
 
 ### Installation/Requirements
@@ -18,7 +15,7 @@ Installation instructions: http://jemris.org/ug_install.html
 
 
 ### Background
-Chemical exchange saturation transfer (CEST) experiments are based on the chemical exchange between a dilute molecules and water protons. By off-resonant saturation, solute pools can be measured indirectly. The relaxation of water protons is affected by the spin population of the solute proton pool due to inter- and intra-molecular magnetization transfer (MT) processes mediated by scalar or dipolar spin-spin couplings or chemical exchange.
+Chemical exchange saturation transfer (CEST) experiments are based on the chemical exchange between dilute molecules and water protons. By off-resonant saturation, solute pools can be measured indirectly. The relaxation of water protons is affected by the spin population of the solute proton pool due to inter- and intra-molecular magnetization transfer (MT) processes mediated by spin-spin couplings or chemical exchange.
 
 The theory, that describes the dynamics of the coupled magnetization vectors in spin-exchange experiments, is based on the Bloch-McConnell (BM) equations [1,2].
 

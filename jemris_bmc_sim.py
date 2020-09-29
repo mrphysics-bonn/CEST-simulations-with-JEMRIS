@@ -182,17 +182,16 @@ def run_cw_sim(td=5000, B1=5, frequency=np.array([-45,-30,0,30,45]), B0=7, n_p=N
         plt.ylabel('$M_{sat}/M_0$',size=12)
         plt.xlim([+frequency[-1],frequency[0]])
     
-    return (Z, FREQ/w0)
+    return Z
 
 
 # ----------- simulation of arbitraty saturation modules -----------
 
 def start_free_sim(arg):
-     '''
+    '''
     command line script to run JEMRIS
     arg: list of frequencies, xml file name & current working directory
     '''
-     
     FREQ, sequence, path_ = arg
 
     with tempfile.TemporaryDirectory() as path:
@@ -244,4 +243,4 @@ def run_sim(sequence='mt_pulsed.xml', frequency=np.array([-45,-30,0,30,45]), B0=
         plt.ylabel('$M_{sat}/M_0$',size=12)
         plt.xlim([frequency[-1],frequency[0]])
 
-    return (Z, FREQ/w0)
+    return Z
